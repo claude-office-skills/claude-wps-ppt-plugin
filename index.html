@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Claude for WPS PPT</title>
+  </head>
+  <body>
+    <div id="root">
+      <div id="_loading" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#FF6B35;background:#1a1a2e;">
+        <style>@keyframes _spin{to{transform:rotate(360deg)}}</style>
+        <div style="width:36px;height:36px;border:3px solid rgba(255,107,53,0.2);border-top-color:#FF6B35;border-radius:50%;animation:_spin .8s linear infinite;margin-bottom:16px;"></div>
+        <div style="font-size:14px;opacity:0.8;">Claude for PPT 加载中...</div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- WPS 加载项 ribbon 绑定脚本：WPS 加载本页时执行，注册 ribbon 按钮回调 -->
+    <script src="/main.js"></script>
+  </body>
+</html>

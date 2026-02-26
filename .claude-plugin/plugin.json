@@ -1,0 +1,49 @@
+{
+  "name": "claude-wps-excel",
+  "version": "1.4.0",
+  "description": "WPS Office Excel AI 数据处理助手 — Skills-Driven 全文件驱动架构",
+  "author": {
+    "name": "claude-office-skills",
+    "url": "https://github.com/claude-office-skills"
+  },
+  "platform": "wps-office",
+  "capabilities": [
+    "data-analysis",
+    "data-cleaning",
+    "formula-operations",
+    "conditional-formatting",
+    "template-generation",
+    "chart-creation",
+    "financial-modeling",
+    "code-execution",
+    "multi-mode",
+    "connectors",
+    "workflows"
+  ],
+  "skills": {
+    "modes": [
+      "skills/modes/agent",
+      "skills/modes/plan",
+      "skills/modes/ask"
+    ],
+    "bundled": [
+      "skills/bundled/wps-core-api",
+      "skills/bundled/code-rules",
+      "skills/bundled/data-cleaning",
+      "skills/bundled/formula-operations",
+      "skills/bundled/conditional-formatting",
+      "skills/bundled/data-analysis",
+      "skills/bundled/financial-modeling",
+      "skills/bundled/chart-creation",
+      "skills/bundled/template-generation"
+    ],
+    "connectors": [
+      "skills/connectors/web-search",
+      "skills/connectors/knowledge-base"
+    ],
+    "workflows": [
+      "skills/workflows/monthly-report"
+    ]
+  },
+  "commands": "commands/"
+}

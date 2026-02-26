@@ -1,0 +1,36 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui">
+  <ribbon startFromScratch="false">
+    <tabs>
+      <tab id="ClaudeAIPpt" label="Claude AI">
+        <group id="ClaudePptGroup" label="Claude AI">
+          <button id="PptOpenClaudePanel"
+                  label="打开 Claude"
+                  onAction="OnOpenClaudePanel"
+                  size="large"
+                  getImage="GetClaudeIcon" />
+          <button id="PptOpenDebugger"
+                  label="JS 调试器"
+                  size="large"
+                  onAction="OnOpenJSDebugger"
+                  getImage="GetDebugIcon" />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+  <contextMenus>
+    <contextMenu idMso="ContextMenuShape">
+      <button id="PptCtxAddToChat"
+        label="发送到 Claude"
+        onAction="OnAddToChat"
+        getImage="GetClaudeIcon"
+        insertBeforeMso="Cut" />
+    </contextMenu>
+    <contextMenu idMso="ContextMenuSlide">
+      <button id="PptCtxSlideAddToChat"
+        label="发送到 Claude"
+        onAction="OnAddToChat"
+        getImage="GetClaudeIcon"
+        insertBeforeMso="Cut" />
+    </contextMenu>
+  </contextMenus>
+</customUI>

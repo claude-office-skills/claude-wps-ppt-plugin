@@ -35,19 +35,24 @@ function OnOpenClaudePanel() {
             return;
           } catch (visErr) {
             // TaskPane 引用已失效（如崩溃后），清除并重建
-            try { wps.PluginStorage.setItem(TASKPANE_KEY, ""); } catch (e) {}
+            try {
+              wps.PluginStorage.setItem(TASKPANE_KEY, "");
+            } catch (e) {}
           }
         }
       } catch (e) {
-        try { wps.PluginStorage.setItem(TASKPANE_KEY, ""); } catch (e2) {}
+        try {
+          wps.PluginStorage.setItem(TASKPANE_KEY, "");
+        } catch (e2) {}
       }
     }
 
-    var createFn = typeof wps.CreateTaskPane === "function"
-      ? wps.CreateTaskPane
-      : typeof wps.createTaskPane === "function"
-        ? wps.createTaskPane
-        : null;
+    var createFn =
+      typeof wps.CreateTaskPane === "function"
+        ? wps.CreateTaskPane
+        : typeof wps.createTaskPane === "function"
+          ? wps.createTaskPane
+          : null;
 
     if (!createFn) {
       alert("当前 WPS 版本不支持 TaskPane API，请更新 WPS Office 到最新版本。");
@@ -82,7 +87,10 @@ function OnOpenJSDebugger() {
       typeof wps.PluginStorage.openDebugger === "function"
     ) {
       wps.PluginStorage.openDebugger();
-    } else if (typeof wps !== "undefined" && typeof wps.openDevTools === "function") {
+    } else if (
+      typeof wps !== "undefined" &&
+      typeof wps.openDevTools === "function"
+    ) {
       wps.openDevTools();
     } else if (
       typeof Application !== "undefined" &&
@@ -91,7 +99,9 @@ function OnOpenJSDebugger() {
     ) {
       Application.PluginStorage.openDebugger();
     } else {
-      alert("JS 调试器在当前 WPS 版本下不可用。\n\n可尝试：菜单 → 开发工具 → 打开调试器");
+      alert(
+        "JS 调试器在当前 WPS 版本下不可用。\n\n可尝试：菜单 → 开发工具 → 打开调试器",
+      );
     }
   } catch (e) {
     alert("打开调试器失败：" + e.message);
@@ -166,7 +176,9 @@ function OnAddToChat() {
     httpPost(PROXY_URL + "/add-to-chat", JSON.stringify(payload));
 
     var tsId = null;
-    try { tsId = wps.PluginStorage.getItem(TASKPANE_KEY); } catch (e) {}
+    try {
+      tsId = wps.PluginStorage.getItem(TASKPANE_KEY);
+    } catch (e) {}
     if (tsId) {
       try {
         var tp = wps.GetTaskPane(tsId);
@@ -199,10 +211,14 @@ window.ribbon_bindUI = function (bindUI) {
 
 function startBackgroundSync() {
   if (_ctxTimer) {
-    try { clearInterval(_ctxTimer); } catch (e) {}
+    try {
+      clearInterval(_ctxTimer);
+    } catch (e) {}
   }
   if (_codePollTimer) {
-    try { clearInterval(_codePollTimer); } catch (e) {}
+    try {
+      clearInterval(_codePollTimer);
+    } catch (e) {}
   }
   pushWpsContext();
   _ctxTimer = setInterval(pushWpsContext, CTX_INTERVAL);
@@ -362,7 +378,33 @@ function pollAndExecuteCode() {
       var totalSlides = slideCountAfter;
       var isBatchOp = code.length > 300 && totalSlides > 1;
       // #region agent log
-      try{fetch('http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'38bc8c'},body:JSON.stringify({sessionId:'38bc8c',location:'wps-addon/main.js:execDone',message:'PPT exec done',data:{before:slideCountBefore,after:slideCountAfter,newSlides:newSlides,codeLen:code.length,isBatchOp:isBatchOp,totalSlides:totalSlides},timestamp:Date.now(),hypothesisId:'H-anim2'})}).catch(function(){});}catch(e){}
+      try {
+        fetch(
+          "http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Debug-Session-Id": "38bc8c",
+            },
+            body: JSON.stringify({
+              sessionId: "38bc8c",
+              location: "wps-addon/main.js:execDone",
+              message: "PPT exec done",
+              data: {
+                before: slideCountBefore,
+                after: slideCountAfter,
+                newSlides: newSlides,
+                codeLen: code.length,
+                isBatchOp: isBatchOp,
+                totalSlides: totalSlides,
+              },
+              timestamp: Date.now(),
+              hypothesisId: "H-anim2",
+            }),
+          },
+        ).catch(function () {});
+      } catch (e) {}
       // #endregion
       if (newSlides > 1) {
         _startSlideAnim(slideCountBefore + 1, slideCountAfter, id, execResult);
@@ -370,7 +412,9 @@ function pollAndExecuteCode() {
         _startSlideAnim(1, totalSlides, id, execResult);
       } else {
         if (newSlides === 1) {
-          try { Application.ActiveWindow.View.GotoSlide(slideCountAfter); } catch(e){}
+          try {
+            Application.ActiveWindow.View.GotoSlide(slideCountAfter);
+          } catch (e) {}
         }
         httpPost(
           PROXY_URL + "/code-result",
@@ -388,15 +432,33 @@ function pollAndExecuteCode() {
 
 function _startSlideAnim(firstNew, lastSlide, id, result) {
   // #region agent log
-  try{fetch('http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'38bc8c'},body:JSON.stringify({sessionId:'38bc8c',location:'wps-addon/main.js:startAnim',message:'SLIDE ANIM START',data:{firstNew:firstNew,lastSlide:lastSlide},timestamp:Date.now(),hypothesisId:'H-anim3'})}).catch(function(){});}catch(e){}
+  try {
+    fetch("http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "38bc8c",
+      },
+      body: JSON.stringify({
+        sessionId: "38bc8c",
+        location: "wps-addon/main.js:startAnim",
+        message: "SLIDE ANIM START",
+        data: { firstNew: firstNew, lastSlide: lastSlide },
+        timestamp: Date.now(),
+        hypothesisId: "H-anim3",
+      }),
+    }).catch(function () {});
+  } catch (e) {}
   // #endregion
-  try { Application.ActiveWindow.View.GotoSlide(firstNew); } catch(e){}
+  try {
+    Application.ActiveWindow.View.GotoSlide(firstNew);
+  } catch (e) {}
   _slideAnimState = {
     currentSlide: firstNew + 1,
     lastSlide: lastSlide,
     id: id,
     result: result,
-    tickWait: 0
+    tickWait: 0,
   };
 }
 
@@ -419,7 +481,23 @@ function _processSlideAnim() {
   }
 
   // #region agent log
-  try{fetch('http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'38bc8c'},body:JSON.stringify({sessionId:'38bc8c',location:'wps-addon/main.js:animStep',message:'SLIDE ANIM STEP',data:{goTo:st.currentSlide,lastSlide:st.lastSlide},timestamp:Date.now(),hypothesisId:'H-anim3'})}).catch(function(){});}catch(e){}
+  try {
+    fetch("http://127.0.0.1:7244/ingest/63acb95d-6f91-4165-a07a-5bab2abb61eb", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "38bc8c",
+      },
+      body: JSON.stringify({
+        sessionId: "38bc8c",
+        location: "wps-addon/main.js:animStep",
+        message: "SLIDE ANIM STEP",
+        data: { goTo: st.currentSlide, lastSlide: st.lastSlide },
+        timestamp: Date.now(),
+        hypothesisId: "H-anim3",
+      }),
+    }).catch(function () {});
+  } catch (e) {}
   // #endregion
   try {
     Application.ActiveWindow.View.GotoSlide(st.currentSlide);

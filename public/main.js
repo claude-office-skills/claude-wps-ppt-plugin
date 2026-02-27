@@ -34,11 +34,15 @@ function OnOpenClaudePanel() {
             startBackgroundSync();
             return;
           } catch (visErr) {
-            try { wps.PluginStorage.setItem(TASKPANE_KEY, ""); } catch (e) {}
+            try {
+              wps.PluginStorage.setItem(TASKPANE_KEY, "");
+            } catch (e) {}
           }
         }
       } catch (e) {
-        try { wps.PluginStorage.setItem(TASKPANE_KEY, ""); } catch (e2) {}
+        try {
+          wps.PluginStorage.setItem(TASKPANE_KEY, "");
+        } catch (e2) {}
       }
     }
 
@@ -70,7 +74,10 @@ function OnOpenJSDebugger() {
       typeof wps.PluginStorage.openDebugger === "function"
     ) {
       wps.PluginStorage.openDebugger();
-    } else if (typeof wps !== "undefined" && typeof wps.openDevTools === "function") {
+    } else if (
+      typeof wps !== "undefined" &&
+      typeof wps.openDevTools === "function"
+    ) {
       wps.openDevTools();
     } else if (
       typeof Application !== "undefined" &&
@@ -79,7 +86,9 @@ function OnOpenJSDebugger() {
     ) {
       Application.PluginStorage.openDebugger();
     } else {
-      alert("JS 调试器在当前 WPS 版本下不可用。\n\n可尝试：菜单 → 开发工具 → 打开调试器");
+      alert(
+        "JS 调试器在当前 WPS 版本下不可用。\n\n可尝试：菜单 → 开发工具 → 打开调试器",
+      );
     }
   } catch (e) {
     alert("打开调试器失败：" + e.message);
@@ -154,7 +163,9 @@ function OnAddToChat() {
     httpPost(PROXY_URL + "/add-to-chat", JSON.stringify(payload));
 
     var tsId = null;
-    try { tsId = wps.PluginStorage.getItem(TASKPANE_KEY); } catch (e) {}
+    try {
+      tsId = wps.PluginStorage.getItem(TASKPANE_KEY);
+    } catch (e) {}
     if (tsId) {
       try {
         var tp = wps.GetTaskPane(tsId);
@@ -187,10 +198,14 @@ window.ribbon_bindUI = function (bindUI) {
 
 function startBackgroundSync() {
   if (_ctxTimer) {
-    try { clearInterval(_ctxTimer); } catch (e) {}
+    try {
+      clearInterval(_ctxTimer);
+    } catch (e) {}
   }
   if (_codePollTimer) {
-    try { clearInterval(_codePollTimer); } catch (e) {}
+    try {
+      clearInterval(_codePollTimer);
+    } catch (e) {}
   }
   pushWpsContext();
   _ctxTimer = setInterval(pushWpsContext, CTX_INTERVAL);
@@ -356,7 +371,9 @@ function pollAndExecuteCode() {
         _startSlideAnim(1, totalSlides, id, execResult);
       } else {
         if (newSlides === 1) {
-          try { Application.ActiveWindow.View.GotoSlide(slideCountAfter); } catch(e){}
+          try {
+            Application.ActiveWindow.View.GotoSlide(slideCountAfter);
+          } catch (e) {}
         }
         httpPost(
           PROXY_URL + "/code-result",
@@ -373,13 +390,15 @@ function pollAndExecuteCode() {
 }
 
 function _startSlideAnim(firstNew, lastSlide, id, result) {
-  try { Application.ActiveWindow.View.GotoSlide(firstNew); } catch(e){}
+  try {
+    Application.ActiveWindow.View.GotoSlide(firstNew);
+  } catch (e) {}
   _slideAnimState = {
     currentSlide: firstNew + 1,
     lastSlide: lastSlide,
     id: id,
     result: result,
-    tickWait: 0
+    tickWait: 0,
   };
 }
 

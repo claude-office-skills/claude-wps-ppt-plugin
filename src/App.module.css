@@ -185,7 +185,7 @@
   position: relative;
   border: 1px solid transparent;
   transition: border-color 0.15s;
-  overflow: hidden;
+  overflow: visible;
   min-height: 80px;
 }
 
@@ -225,6 +225,7 @@
   gap: 4px;
   flex: 1;
   overflow: hidden;
+  border-radius: 14px 14px 0 0;
 }
 
 .inputChips {
@@ -288,7 +289,7 @@
   gap: 4px;
   flex-shrink: 0;
   border-top: 1px solid #3a3a3a30;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .toolbarLeft {

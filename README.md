@@ -3,7 +3,7 @@
 WPS Office 演示文稿 AI 助手——通过自然语言对话创建和编辑幻灯片，由 Claude API 驱动。
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+![Version](https://img.shields.io/badge/version-1.1.0-green)
 ![Platform](https://img.shields.io/badge/platform-WPS%20Office-red)
 
 ## 功能特性
@@ -118,6 +118,31 @@ context:
 ```
 
 重启 Proxy 即可自动加载。
+
+## 版本日志
+
+### v1.1.0 (2026-02-27) — Ribbon 图标修复 + 模型选择器修复
+
+**修复**
+- Ribbon 图标从 SVG URL 改为 PNG 本地文件引用，提升兼容性
+- 修复模型选择器下拉菜单无法展开的问题（`overflow: hidden` → `overflow: visible`）
+
+### v1.0.0 (2026-02-26) — 初始版本
+
+**核心功能**
+- 逐页翻页动画：代码执行后自动逐页 GotoSlide，每页停留 ~2.4 秒
+- 高品质 System Prompt：设计质量标准作为最高优先级
+- slide-generation skill v2：4 套配色方案 + 5 种布局模板
+- layout-beautify skill v2：装饰元素模式 + 5 级字号视觉层次
+- ppt-core-api skill：WPP API 完整参考
+- 8 个快捷指令 + 3 种交互模式 + MCP 连接器
+- 代码执行桥 + 流式响应 + 会话历史
+- 侧边栏默认左侧 + 崩溃恢复 + 橙色品牌加载动画
+
+**修复**
+- "已应用到表格" → "已应用到演示文稿"
+- TASKPANE_URL 从 Vite dev server 修正为 proxy
+- 侧边栏拖动崩溃后无法重新打开
 
 ## 相关项目
 
